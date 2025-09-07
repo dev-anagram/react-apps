@@ -1,1 +1,5 @@
 @import "tailwindcss";
+
+.btn-calc{
+    @apply bg-gray-600 hover:bg-gray-500 transition duration-500 ease-in-out py-3 rounded-xl text-xl font-bold shadow w-15;
+}

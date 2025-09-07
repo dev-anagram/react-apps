@@ -3,12 +3,12 @@ import Toast from 'typescript-toastify'
 
 function sendToast(): void {
     const toast = new Toast({
-        position: "top-center",
+        position: "top-right",
         toastMsg: "Limit exceeded",
         autoCloseTime: 2000,
         canClose: true,
         showProgress: true,
-        type: "warning",
+        type: "default",
         theme: "dark"
     });
     toast.remove;
