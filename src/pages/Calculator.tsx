@@ -6,7 +6,7 @@ export default function Calculator(){
     return (
         <div className="grid-cols-1 p-4 bg-blue-950 rounded-2xl w-auto h-min relative border-solid border-3 border-gray-500">
             <div className="mb-2 h-auto bg-gray-900 rounded-2xl border-solid border-3 border-black">
-                <p className="text-3xl px-4 py-2 text-right text-white font-bold">
+                <p className="text-3xl px-2 py-1 text-right text-white font-bold">
                     {result}
                 </p>
             </div>
