@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
 .btn-calc{
-    @apply bg-gray-600 hover:bg-gray-500 transition duration-200 ease-in-out py-3 rounded-xl text-xl font-bold shadow w-15;
+    @apply disabled:bg-red-900 bg-gray-600 hover:bg-gray-500 transition duration-200 ease-in-out py-3 rounded-xl text-xl font-bold shadow w-15;
+}
+
+.nav-item{
+    @apply hover:bg-gray-900 transition duration-200 ease-in-out px-3 py-1 rounded;
 }

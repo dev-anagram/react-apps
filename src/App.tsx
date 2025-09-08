@@ -6,21 +6,23 @@ import Home from './pages/Home.tsx'
 function App() {
   return (
     <>
-      <Router>
-        <nav className='bg-gray-800 p-4 flex gap-4 w-2xl mb-5 text-white justify-center rounded-2xl'>
-          <Link to = "/" className="hover:bg-gray-700 px-3 py-1 rounded">Home</Link>
-          <Link to = "/counter" className="hover:bg-gray-700 px-3 py-1 rounded">Counter</Link>
-          <Link to = "/calculator" className="hover:bg-gray-700 px-3 py-1 rounded">Calculator</Link>
-        </nav>
+      <div className='grid grid-cols-1'>
+        <Router>
+          <nav className='font-bold text-xl bg-gray-800 px-5 py-2 flex gap-6 w-min mb-5 justify-center rounded-2xl'>
+            <Link to = "/" className="nav-item">Home</Link>
+            <Link to = "/counter" className="nav-item">Counter</Link>
+            <Link to = "/calculator" className="nav-item">Calculator</Link>
+          </nav>
 
-        <div className='flex min-h-screen justify-center'>
-          <Routes>
-            <Route path = "*" element = {<Home />} />
-            <Route path = "/counter" element = {<Counter />} />
-            <Route path = "/calculator" element = {<Calculator />} />
-          </Routes>
-        </div>
-      </Router>
+          <div className='flex min-h-screen justify-center'>
+            <Routes>
+              <Route path = "*" element = {<Home />} />
+              <Route path = "/counter" element = {<Counter />} />
+              <Route path = "/calculator" element = {<Calculator />} />
+            </Routes>
+          </div>
+        </Router>
+      </div>
     </>
   )
 }
