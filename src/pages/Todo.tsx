@@ -4,16 +4,18 @@ export default function Todo(){
     interface todoItem {
         id: number;
         isCompleted: boolean;
+        title: string;
         content: string;
     };
 
     const [list, setList] = useState<todoItem[]>([]);
 
-    const addTodo = (content: string) => {
-        if(content != ""){
+    const addTodo = (title: string, content: string) => {
+        if(content != "" && title != ""){
             const newTodo: todoItem = {
                 id: Date.now(),
                 isCompleted: false,
+                title,
                 content,
             };
 
@@ -35,33 +37,33 @@ export default function Todo(){
 
     const renderList = () => {
         return list.map((val: todoItem) => (
-            <tr key={val.id}>
-                <td><button onClick={() => toggleTodo(val.id)}>{val.isCompleted ? "✅" : "❌"}</button></td>
-                <td>{val.content}</td>
-                <td><button onClick={() => removeTodo(val.id)}>usuń</button></td>
-            </tr>
+            <div className="grid grid-cols-1 w-xl bg-gray-800 p-4 rounded-lg mb-2 text-pretty " key={val.id}>
+                <div className={val.isCompleted ? "line-through text-gray-400" : ""}>
+                    <p className="font-bold text-2xl">{val.title}</p>
+                    {val.content}
+                </div>
+                <div className="flex justify-around">
+                    <button className="button-reset" onClick={() => toggleTodo(val.id)}>{val.isCompleted ? "✅" : "❌"}</button>
+                    <button className="button-remove" onClick={() => removeTodo(val.id)}>usuń</button>
+                </div>
+            </div>
         ))
     };
 
+    const [newTodoTitle, setNewTodoTitle] = useState('');
     const [newTodoContent, setNewTodoContent] = useState('');
 
     return(
-        <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Is Completed</th>
-                        <th>Content</th>
-                        <th>Remove</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {renderList()}
-                </tbody>
-            </table>
-            <form>
-                <input type="text" onChange={(e) => setNewTodoContent(e.target.value)}></input>
-                <button type="button" onClick={() => addTodo(newTodoContent)}>dodaj</button>
+        <div className="flex-col">
+            <div>
+                {renderList()}
+            </div>
+            <form className="content-start">
+                <label className="font-bold text-xl" htmlFor="title">Title</label>
+                <p><input className="todo-add" type="text" maxLength={50} name="title" onChange={(e) => setNewTodoTitle(e.target.value)} /></p>
+                <label className="font-bold text-md" htmlFor="content">Content</label>
+                <p><input className="todo-add" type="text" maxLength={500} name="content" onChange={(e) => setNewTodoContent(e.target.value)} /></p>
+                <button className="button-add mt-2" type="button" onClick={() => addTodo(newTodoTitle, newTodoContent)}>Add</button>
             </form>
         </div>
     );
