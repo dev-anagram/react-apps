@@ -8,7 +8,7 @@ import Weather from './pages/Weather.tsx'
 function App() {
   return (
     <>
-      <div className='grid grid-cols-1 min-w-lg items-center justify-center'>
+      <div className='felx flex-col min-w-lg items-center justify-center'>
         <Router>
           <nav className='font-bold text-xl bg-gray-800 px-5 py-2 flex gap-3 mb-5 justify-center rounded-2xl'>
             <Link to = "/" className="nav-item">Home</Link>
