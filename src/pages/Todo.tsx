@@ -37,10 +37,10 @@ export default function Todo(){
 
     const renderList = () => {
         return list.map((val: todoItem) => (
-            <div className="grid grid-cols-1 w-xl bg-gray-800 p-4 rounded-lg mb-2 text-pretty " key={val.id}>
+            <div className="grid grid-cols-1 max-w-xl bg-gray-800 p-4 rounded-lg mb-2 text-pretty" key={val.id}>
                 <div className={val.isCompleted ? "line-through text-gray-400" : ""}>
-                    <p className="font-bold text-2xl">{val.title}</p>
-                    {val.content}
+                    <p className="font-extrabold text-2xl whitespace-normal break-words">{val.title}</p>
+                    <p className="font-medium text-l whitespace-normal break-words">{val.content}</p>
                 </div>
                 <div className="flex justify-around">
                     <button className="button-reset" onClick={() => toggleTodo(val.id)}>{val.isCompleted ? "✅" : "❌"}</button>

@@ -9,7 +9,7 @@
 }
 
 .todo-add{
-    @apply border-2 rounded w-xl py-2 px-3 text-gray-400 mb-1;
+    @apply border-2 rounded max-w-xl py-2 px-3 text-gray-400 mb-1;
 }
 
 .button-add{

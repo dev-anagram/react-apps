@@ -9,7 +9,7 @@ export default function Calculator(){
             return;
         }
         setExpression((prev) => prev + value);
-  };
+    };
 
     const handleClear = () => {
         setExpression("");
@@ -26,7 +26,9 @@ export default function Calculator(){
     }
 
     return (
+        // wrapper
         <div className="grid-cols-1 p-4 bg-blue-950 rounded-2xl w-auto h-min relative border-solid border-3 border-gray-500">
+            {/* screen */}
             <div className="mb-2 h-auto bg-gray-900 rounded-2xl border-solid border-3 border-black">
                 <p className="text-3xl px-2 py-1 text-right font-bold">
                     {!result ? (
@@ -42,6 +44,7 @@ export default function Calculator(){
                     )}
                 </p>
             </div>
+            {/* buttons */}
             <div className="p-2 grid grid-cols-4 place-items-center gap-2 py-2 h-auto bg-gray-900 rounded-2xl border-solid border-3 border-black">
                 <button onClick={() => handleClick("%")} className="btn-calc">%</button>
                 <button onClick={handleClear} className="btn-calc">CE</button>
