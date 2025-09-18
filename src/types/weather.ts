@@ -6,6 +6,7 @@ export interface WeatherData{
         humidity: number;
     };
     weather:{
+        main: string;
         description: string;
         icon: string;
     }[];
@@ -13,4 +14,4 @@ export interface WeatherData{
         speed: number;
     };
     visibility: number;
-}
+};

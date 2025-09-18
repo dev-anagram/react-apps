@@ -1,15 +1,43 @@
-import { Droplets, Eye, Wind, Sun, CloudRain, Droplet, Zap } from "lucide-react";
+import { Droplets, Eye, Wind, Sun, CloudRain, CloudDrizzle, CloudSnow, Cloud, Ban, Haze, CloudLightning } from "lucide-react";
 import { useWeather } from "../hooks/useWeather";
+import { useForecast } from "../hooks/useWeatherForecast";
 import { useState } from "react";
 import {format } from "date-fns";
 
-function formatDate(timestamp: number): string {
+function formatDateMain(timestamp: number): string {
     return format(new Date(timestamp * 1000), "EEEE dd MMMM");
+}
+
+function formatDateForecast(timestamp: number): string {
+    return format(new Date(timestamp * 1000), "dd MMM");
+}
+
+function getIcon(weather: string, size: number) {
+    switch (weather) {
+        case 'Thunderstorm':
+            return <CloudLightning className="mx-auto" size={size} />
+        case 'Drizzle':
+            return <CloudDrizzle className="mx-auto" size={size} />
+        case 'Rain':
+            return <CloudRain className="mx-auto" size={size} />
+        case 'Snow':
+            return <CloudSnow className="mx-auto" size={size} />
+        case 'Atmosphere':
+            return <Haze className="mx-auto" size={size} />
+        case 'Clear':
+            return <Sun className="mx-auto" size={size} />
+        case 'Clouds':
+            return <Cloud className="mx-auto" size={size} />
+        default:
+            <Ban className="mx-auto" size={size} />
+            return
+    }
 }
 
 export default function Weather(){
     const [city, setCity] = useState("Warsaw");
     const { data, loading, error } = useWeather(city);
+    const { dataF, loadingF, errorF } = useForecast(city);
 
     return(
         // wrapper
@@ -21,12 +49,13 @@ export default function Weather(){
                     {/* City */}
                     <div className="font-bold text-2xl mb-3">{data.name}</div>
                     {/* date */}
-                    <div className="font-medium text-lg bg-black text-yellow-400 rounded-xl px-3 py-1 my-2 mx-auto w-min text-nowrap">{formatDate(data.dt)}</div>
+                    <div className="font-medium text-lg bg-black text-yellow-400 rounded-xl px-3 py-1 my-2 mx-auto w-min text-nowrap">{formatDateMain(data.dt)}</div>
                     {/* weather */}
                     <div className="font-bold text-lg">{data.weather[0].description}</div>
                     {/* temperature */}
-                    <img className="mx-auto" src={`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`} alt={data.weather[0].description} />
-                    <div className="text-9xl">{Math.round(data.main.temp)}</div>
+                    {/* <img className="mx-auto" src={`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`} alt={data.weather[0].description} /> */}
+                    {getIcon(data.weather[0].main, 50)}
+                    <div className="text-9xl">{Math.round(data.main.temp)}&#176;</div>
                     {/* wind / humidity / visibility */}
                     <div className="grid grid-cols-3 gap-1 bg-black rounded-2xl text-yellow-400 px-5 py-2">
                         <div className="weather-attribute">
@@ -46,29 +75,43 @@ export default function Weather(){
                         </div>
                     </div>
                     {/* forecast */}
-                    <div className="font-bold text-lg mt-2">Weekly forecast</div>
-                    <div className="flex justify-center gap-2">
-                        <div className="weather-forecast-item">
-                            <p className="weather-forecast-temp">26&#176;</p>
-                            <Sun className="mx-auto "/>
-                            <p className="weather-forecast-date">21 jan</p>
+                    {dataF &&
+                    <>
+                        <div className="font-bold text-lg mt-2">Weekly forecast</div>
+                        <div className="flex justify-center gap-2">
+                            <div className="weather-forecast-item">
+                                <p className="weather-forecast-temp">{Math.round(dataF.list[4].main.temp)}&#176;</p>
+                                {/* <Sun className="mx-auto "/> */}
+                                {/* <img className="mx-auto object-contain w-10" src={`https://openweathermap.org/img/wn/${dataF.list[5].weather[0].icon}@2x.png`} alt={data.weather[0].description} /> */}
+                                {getIcon(dataF.list[4].weather[0].main, 30)}
+                                <p className="weather-forecast-date">{formatDateForecast(dataF.list[4].dt)}</p>
+                            </div>
+                            <div className="weather-forecast-item">
+                                <p className="weather-forecast-temp">{Math.round(dataF.list[12].main.temp)}&#176;</p>
+                                {/* <CloudRain className="mx-auto"/> */}
+                                {/* <img className="mx-auto object-contain w-10" src={`https://openweathermap.org/img/wn/${dataF.list[15].weather[0].icon}@2x.png`} alt={data.weather[0].description} /> */}
+                                {getIcon(dataF.list[12].weather[0].main, 30)}
+                                <p className="weather-forecast-date">{formatDateForecast(dataF.list[12].dt)}</p>
+                            </div>
+                            <div className="weather-forecast-item">
+                                <p className="weather-forecast-temp">{Math.round(dataF.list[20].main.temp)}&#176;</p>
+                                {/* <Droplet className="mx-auto" /> */}
+                                {/* <img className="mx-auto object-contain w-10" src={`https://openweathermap.org/img/wn/${dataF.list[25].weather[0].icon}@2x.png`} alt={data.weather[0].description} /> */}
+                                {getIcon(dataF.list[20].weather[0].main, 30)}
+                                <p className="weather-forecast-date">{formatDateForecast(dataF.list[20].dt)}</p>
+                            </div>
+                            <div className="weather-forecast-item">
+                                <p className="weather-forecast-temp">{Math.round(dataF.list[28].main.temp)}&#176;</p>
+                                {/* <Zap className="mx-auto" /> */}
+                                {/* <img className="mx-auto object-contain w-10" src={`https://openweathermap.org/img/wn/${dataF.list[35].weather[0].icon}@2x.png`} alt={data.weather[0].description} /> */}
+                                {getIcon(dataF.list[28].weather[0].main, 30)}
+                                <p className="weather-forecast-date">{formatDateForecast(dataF.list[28].dt)}</p>
+                            </div>
                         </div>
-                        <div className="weather-forecast-item">
-                            <p className="weather-forecast-temp">25&#176;</p>
-                            <CloudRain className="mx-auto"/>
-                            <p className="weather-forecast-date">22 jan</p>
-                        </div>
-                        <div className="weather-forecast-item">
-                            <p className="weather-forecast-temp">27&#176;</p>
-                            <Droplet className="mx-auto" />
-                            <p className="weather-forecast-date">23 jan</p>
-                        </div>
-                        <div className="weather-forecast-item">
-                            <p className="weather-forecast-temp">26&#176;</p>
-                            <Zap className="mx-auto" />
-                            <p className="weather-forecast-date">24 jan</p>
-                        </div>
-                    </div>
+                    </>
+                    }
+                    {loadingF && <p className="text-white">Loading forecast</p>}
+                    {errorF && <p className="text-white">Error: {errorF}</p>}
                 </div>
             }
             {loading && <p className="text-white">Loading weather</p>}
