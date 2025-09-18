@@ -9,7 +9,7 @@ It still provide some information but its accuracy isn't guaranteed
 
 ### Dependencies
 
-list of used additional dependencies:
+list of additional dependencies:
 - tailwindcss/vite
 - axios
 - date-fns
